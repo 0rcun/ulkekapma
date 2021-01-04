@@ -9,8 +9,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static com.allybros.UIComponent.MapPanel.getMapX;
-import static com.allybros.UIComponent.MapPanel.getMapY;
+import static com.allybros.UIComponent.MapPanel.*;
 
 public class Country extends JButton{
     private int col;
@@ -49,8 +48,6 @@ public class Country extends JButton{
                 }
             }
         });
-    }
-    public Country(){
     }
 
     public void take(Player owner) {
@@ -107,11 +104,11 @@ public class Country extends JButton{
     }
 
     public static Country getCountryByColRow(int col,int row){
-        if (col<0||row<0||col>=getMapX()||row>=getMapY()){
+        if (col<0||row<0||col>=getMapSize()||row>=getMapSize()){
             return null;
         }
         int index;
-        index = col + ((getMapX()) * row);
+        index = col + ((getMapSize()) * row);
         System.out.println("Getting index: "+index);
         return countries.get(index);
     }

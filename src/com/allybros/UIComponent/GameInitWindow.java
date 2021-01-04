@@ -11,26 +11,23 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-public class GameInıtWindow extends JFrame{
+public class GameInitWindow extends JFrame{
 
     private static int counter;
 
-    public GameInıtWindow(){
+    public GameInitWindow(){
 
         JPanel gameInit = new JPanel();
         gameInit.setLayout(new BoxLayout(gameInit,BoxLayout.Y_AXIS));
-        JPanel playerOptionsPanel = new JPanel(new GridLayout(4,1));
+        JPanel playerOptionsPanel = new JPanel(new GridLayout(2,2));
         JPanel gameOptionsPanel = new JPanel(new GridLayout(2,2));
         JButton startGame = new JButton("Start Game!");
         startGame.setAlignmentX(0.5f);
 
         //Map Form
         JPanel mapForm = new JPanel();
-        JTextField mapSizeX = new JTextField(3);
-        JTextField mapSizeY = new JTextField(3);
-        mapForm.add(mapSizeX);
-        mapForm.add(new JLabel("X"));
-        mapForm.add(mapSizeY);
+        JTextField mapSize = new JTextField(20);
+        mapForm.add(mapSize);
 
         //Number Of Players Form
         String [] playerNumbersList = {"2 Players", "3 Players","4 Players"};
@@ -87,22 +84,19 @@ public class GameInıtWindow extends JFrame{
         startGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                int x = 15;
-                int y = 10;
+                int size;
                 try {
-                    x = Integer.parseInt(mapSizeX.getText());
-                    y = Integer.parseInt(mapSizeY.getText());
+                    size = Integer.parseInt(mapSize.getText());
                 }catch (NumberFormatException ex){
                     JOptionPane.showMessageDialog(null,"Please fix map size values.");
                     return;
                 }
-
                 int numberOfPlayers = optionPlayerNumbers.getSelectedIndex()+2;
                 Player[] players = new Player[numberOfPlayers];
                 for (int i = 0; i < numberOfPlayers; i++) {
                     players[i] = new Player(playerFormPanels[i].getPlayerName(),playerFormPanels[i].getColorNumber());
                 }
-                new Game(x, y, players);
+                new Game(size, players);
                 dispose();
             }
         });
@@ -110,8 +104,10 @@ public class GameInıtWindow extends JFrame{
         //Insert into Game Options Panel
         gameOptionsPanel.add(new JLabel("Number of Players:"));
         gameOptionsPanel.add(optionPlayerNumbers);
-        gameOptionsPanel.add(new JLabel("Map Size:"));
+        gameOptionsPanel.add(new JLabel("Map Size (10x10):"));
         gameOptionsPanel.add(mapForm);
+
+
 
         //Build Window
         gameInit.add(gameOptionsPanel);

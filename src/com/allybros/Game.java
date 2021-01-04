@@ -21,9 +21,9 @@ public class Game {
     public static JFrame mainWindow;
     public static MapPanel mapPanel;
 
-    public Game(int x, int y, Player ... players){
+    public Game(int size, Player ... players){
         mainWindow = new JFrame();
-        mapPanel = new MapPanel(x,y);
+        mapPanel = new MapPanel(size);
         dataPanel = new NDataPanel(players);
 
         JButton completeTurn = new JButton("Complete Turn");
@@ -35,7 +35,7 @@ public class Game {
             }
         });
 
-        mainWindow.setSize(x*70,y*75);
+        mainWindow.setSize(size*70,size*75);
         mainWindow.setLayout(new BorderLayout());
         mainWindow.add(mapPanel,BorderLayout.CENTER);
         mainWindow.add(dataPanel,BorderLayout.NORTH);

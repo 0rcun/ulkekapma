@@ -8,20 +8,19 @@ import java.awt.*;
 public class MapPanel extends JPanel {
 
     Country[][] countries;
-    private static int x;
-    private static int y;
+    private static int size;
+    public static final int MIN_SIZE = 10;
 
-    public MapPanel(int x, int y) {
+    public MapPanel(int size) {
+        MapPanel.size = size < MIN_SIZE ? 10 : size;
 
-        MapPanel.x = x;
-        MapPanel.y = y;
-
-        GridLayout layout = new GridLayout(y,x); //Create layout
-        countries = new Country[x][y];
+        GridLayout layout = new GridLayout(size,size); //Create layout
+        countries = new Country[size][size];
         setLayout(layout);
 
-        for (int i = 0; i < y; i++){
-            for (int j= 0 ; j < x; j++) {
+        for (int i = 0; i < size; i++){
+            for (int j= 0 ; j < size; j++) {
+                //Countries includes to array
                 countries[j][i] = new Country(j,i);
                 add(countries[j][i]);
             }
@@ -29,20 +28,14 @@ public class MapPanel extends JPanel {
     }
 
     public void disableMap(){
-        for (int i = 0; i < y ; i++){
-            for (int j= 0 ; j < x; j++) {
+        for (int i = 0; i < getMapSize() ; i++){
+            for (int j= 0 ; j < getMapSize(); j++) {
                 countries[j][i].setEnabled(false);
             }
         }
     }
 
-
-    public static int getMapX() {
-        return x;
-    }
-
-
-    public static int getMapY() {
-        return y;
+    public static int getMapSize() {
+        return size;
     }
 }
