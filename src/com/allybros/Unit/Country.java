@@ -18,7 +18,6 @@ public class Country extends JButton{
     private int value;
     private Player owner;
     private static ArrayList<Country> countries = new ArrayList<>();
-    private static Country abstractCountry = new Country(1000,1000);
     public Country(int col, int row) {
         this.col = col;
         this.row = row;
@@ -30,7 +29,6 @@ public class Country extends JButton{
         this.setForeground(Color.lightGray);
         Country current = this;
         countries.add(this);
-        countries.remove(abstractCountry);
         this.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -52,7 +50,8 @@ public class Country extends JButton{
             }
         });
     }
-
+    public Country(){
+    }
 
     public void take(Player owner) {
         int tax;
@@ -109,7 +108,7 @@ public class Country extends JButton{
 
     public static Country getCountryByColRow(int col,int row){
         if (col<0||row<0||col>=getMapX()||row>=getMapY()){
-            return abstractCountry;
+            return null;
         }
         int index;
         index = col + ((getMapX()) * row);
@@ -124,14 +123,14 @@ public class Country extends JButton{
         }
         int col = country.col;
         int row = country.row;
-        if (Objects.requireNonNull(getCountryByColRow(col - 1, row - 1)).owner==player) return true;
-        if (Objects.requireNonNull(getCountryByColRow(col, row - 1)).owner==player) return true;
-        if (Objects.requireNonNull(getCountryByColRow(col + 1, row - 1)).owner==player) return  true;
-        if (Objects.requireNonNull(getCountryByColRow(col - 1, row)).owner==player) return true;
-        if (Objects.requireNonNull(getCountryByColRow(col + 1, row)).owner==player) return true;
-        if (Objects.requireNonNull(getCountryByColRow(col - 1, row + 1)).owner==player) return true;
-        if (Objects.requireNonNull(getCountryByColRow(col, row + 1)).owner==player) return true;
-        if (Objects.requireNonNull(getCountryByColRow(col + 1, row + 1)).owner==player) return true;
+        if (getCountryByColRow(col - 1, row - 1) != null && getCountryByColRow(col - 1, row - 1).owner==player) return true;
+        if (getCountryByColRow(col, row - 1) != null && getCountryByColRow(col, row - 1).owner==player) return true;
+        if (getCountryByColRow(col + 1, row - 1) != null && getCountryByColRow(col + 1, row - 1).owner==player) return  true;
+        if (getCountryByColRow(col - 1, row) != null && getCountryByColRow(col - 1, row).owner==player) return true;
+        if (getCountryByColRow(col + 1, row) != null && getCountryByColRow(col + 1, row).owner==player) return true;
+        if (getCountryByColRow(col - 1, row +1) != null && getCountryByColRow(col - 1, row + 1).owner==player) return true;
+        if (getCountryByColRow(col, row + 1) != null && getCountryByColRow(col, row + 1).owner==player) return true;
+        if (getCountryByColRow(col + 1, row + 1) != null && getCountryByColRow(col + 1, row + 1).owner==player) return true;
         System.out.println("Not bounds to: "+country.col+", "+country.row);
         return false;
     }
